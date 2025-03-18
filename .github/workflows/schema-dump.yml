@@ -1,4 +1,4 @@
-name: MySQL Schema Dump
+name: MySQL Schema Dump (Laravel)
 on: [ push, pull_request ]
 jobs:
     schema-dump:
@@ -54,7 +54,7 @@ jobs:
             -   name: Clear Application Cache
                 run: php artisan optimize:clear
             -   name: Run Schema Dump
-                run: php artisan schema:dump --database=unit3d --path=database/schema/mysql-schema-new.sql
+                run: php artisan schema:dump --path=database/schema/mysql-schema-new.sql
             -   name: Check if schema has changed
                 id: diff
                 run: |
