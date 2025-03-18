@@ -1,7 +1,7 @@
-name: PHP Static Analysis (Larastan)
+name: MySQL Schema Dump
 on: [ push, pull_request ]
 jobs:
-    test:
+    schema-dump:
         strategy:
             matrix:
                 operating-system:
@@ -19,15 +19,6 @@ jobs:
                 ports:
                     - 3306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-            redis:
-                image: redis:5.0
-                ports:
-                    - 6379:6379
-                options: >-
-                    --health-cmd "redis-cli ping"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
         steps:
             -   name: Checkout
                 uses: actions/checkout@v4
@@ -37,7 +28,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php-version }}
-                    extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
+                    extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip, mysql
                     coverage: none
             -   name: Install Composer Dependencies
                 env:
@@ -49,12 +40,24 @@ jobs:
                 run: php artisan key:generate
             -   name: Clear Application Cache
                 run: php artisan optimize:clear
-            -   name: Run Larastan
-                run: ./vendor/bin/phpstan analyse -vvv --memory-limit=2G
-            -   name: Cache phpstan cache directory
-                uses: actions/cache@v4
+            -   name: Run Schema Dump
+                run: php artisan schema:dump --database=unit3d --path=database/schema/mysql-schema-new.sql
+            -   name: Check if schema has changed
+                id: diff
+                run: |
+                    if [ -f database/schema/mysql-schema.sql ] && diff -q database/schema/mysql-schema.sql database/schema/mysql-schema-new.sql > /dev/null; then
+                      echo "No changes detected in schema"
+                      echo "has_changes=false" >> $GITHUB_OUTPUT
+                    else
+                      echo "Changes detected in schema"
+                      echo "has_changes=true" >> $GITHUB_OUTPUT
+                      cp database/schema/mysql-schema-new.sql database/schema/mysql-schema.sql
+                    fi
+            -   name: Commit Schema Changes
+                if: steps.diff.outputs.has_changes == 'true'
+                uses: stefanzweifel/git-auto-commit-action@v5
                 with:
-                    path: .phpstan.cache
-                    key: "phpstan-cache-${{ github.run_id }}"
-                    restore-keys: |
-                        phpstan-cache-
+                    commit_message: "automation: update schema dump"
+                    commit_user_name: unit3d-bot
+                    commit_user_email: unit3d_gh_bot@protonmail.com
+                    commit_author: unit3d-bot <unit3d_gh_bot@protonmail.com>
