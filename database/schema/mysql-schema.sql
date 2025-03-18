@@ -230,8 +230,8 @@ DROP TABLE IF EXISTS `bon_earning_conditions`;
 CREATE TABLE `bon_earning_conditions` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `bon_earning_id` int unsigned NOT NULL,
-  `operand1` enum('1','age','size','seeders','leechers','times_completed','personal_release','internal','type_id','seedtime','connectable') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `operator` enum('<','>','<=','>=','=','!=') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operand1` enum('1','age','size','seeders','leechers','times_completed','personal_release','internal','type_id','seedtime','connectable') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operator` enum('<','>','<=','>=','=','!=') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `operand2` decimal(27,15) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `bon_earning_conditions_bon_earning_id_foreign` (`bon_earning_id`),
@@ -244,11 +244,11 @@ DROP TABLE IF EXISTS `bon_earnings`;
 CREATE TABLE `bon_earnings` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `position` int unsigned NOT NULL,
-  `variable` enum('1','age','size','seeders','leechers','times_completed','personal_release','internal','seedtime','connectable') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `variable` enum('1','age','size','seeders','leechers','times_completed','personal_release','internal','seedtime','connectable') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `multiplier` decimal(27,15) NOT NULL,
-  `operation` enum('append','multiply') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operation` enum('append','multiply') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `bon_earnings_position_unique` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -942,9 +942,9 @@ DROP TABLE IF EXISTS `igdb_companies`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `igdb_companies` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo_image_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo_image_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -989,15 +989,15 @@ DROP TABLE IF EXISTS `igdb_games`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `igdb_games` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` text COLLATE utf8mb4_unicode_ci,
-  `first_artwork_image_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `first_artwork_image_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `first_release_date` timestamp NULL DEFAULT NULL,
-  `cover_image_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover_image_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rating` double DEFAULT NULL,
   `rating_count` int unsigned DEFAULT NULL,
-  `first_video_video_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_video_video_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1008,7 +1008,7 @@ DROP TABLE IF EXISTS `igdb_genres`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `igdb_genres` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1017,8 +1017,8 @@ DROP TABLE IF EXISTS `igdb_platforms`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `igdb_platforms` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `platform_logo_image_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `platform_logo_image_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
