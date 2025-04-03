@@ -122,7 +122,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => env('HSTS_ENABLED', true),
+        'enable' => env('HSTS_ENABLED', false),
 
         'max-age' => 31536000,
 
@@ -451,7 +451,7 @@ return [
      */
 
     'csp' => [
-        'enable' => env('CSP_ENABLED', true),
+        'enable' => env('CSP_ENABLED', false),
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
         'report-only' => env('CSP_REPORT_ONLY', false),
