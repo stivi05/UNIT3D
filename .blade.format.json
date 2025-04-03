@@ -1,9 +1,0 @@
-{
-  "attributeJsOptions": {
-    "semi": true
-  },
-  "phpOptions": {
-    "singleQuote": true
-  },
-  "useLaravelPint": false
-}

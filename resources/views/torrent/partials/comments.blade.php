@@ -1,1 +1,0 @@
-<livewire:comments :model="$torrent" />
